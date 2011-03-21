@@ -1,0 +1,12 @@
+cgrep.sh
+c-only.ctags
+ctags_forlang.sh
+ctags_setup_myproject.sh
+exclude_patterns.ctags
+java-only.ctags
+kate_trace.sh
+mgrep.sh
+symbol_find.sh
+traces2srcref.sh
+vim_src2stack.sh
+vim_traceopen.sh

@@ -1,0 +1,5 @@
+*.git/*
+out/*
+dalvik/dx/tests/*
+temp_*
+
