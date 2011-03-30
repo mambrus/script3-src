@@ -4,6 +4,7 @@ ctags_forlang.sh
 ctags_setup_myproject.sh
 exclude_patterns.ctags
 java-only.ctags
+jgrep.sh
 kate_trace.sh
 mgrep.sh
 symbol_find.sh

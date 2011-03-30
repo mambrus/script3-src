@@ -46,26 +46,26 @@ function ctags_forlang() {
 			;;
 		Java)
 			echo "Running ctags for language [Java]. Please wait..."
-			ctags --options=srcutils.java-only.ctags  --exclude=@srcutils.exclude_patterns.ctags -o j-tags -R *
+			ctags --options=src.java-only.ctags  --exclude=@src.exclude_patterns.ctags -o j-tags -R *
 			ln -sf j-tags tags
 			RC=1
 			;;
 		java)
 			echo "Running ctags for language [Java]. Please wait..."
-			ctags --options=srcutils.java-only.ctags  --exclude=@srcutils.exclude_patterns.ctags -o j-tags -R *
+			ctags --options=src.java-only.ctags  --exclude=@src.exclude_patterns.ctags -o j-tags -R *
 			ln -sf j-tags tags
 			RC=1
 			;;
 		C)
 			echo "Running ctags for language [C]. Please wait..."
-			ctags --options=srcutils.c-only.ctags  --exclude=@srcutils.exclude_patterns.ctags -o c-tags -R *
+			ctags --options=src.c-only.ctags  --exclude=@src.exclude_patterns.ctags -o c-tags -R *
 			ln -sf c-tags tags
 			RC=1
 			;;
 
 		c)
 			echo "Running ctags for language [C]. Please wait..."
-			ctags --options=srcutils.c-only.ctags  --exclude=@srcutils.exclude_patterns.ctags -o c-tags -R *
+			ctags --options=src.c-only.ctags  --exclude=@src.exclude_patterns.ctags -o c-tags -R *
 			ln -sf c-tags tags
 			RC=1
 			;;

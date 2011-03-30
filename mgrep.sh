@@ -9,7 +9,7 @@ MGREP_SH="mgrep.sh"
 # Atempts to work as the very useful Android mgrep utility
 
 function mgrep() {
-	find . -iregex '\(.*\.mk$\|.*makefile.*$\)' -exec egrep "$1" -nH '{}' ';' \
+	find . -iregex '\(.*\.mk$\|.*makefile.*$\)' -exec egrep "$1" -nH --color=always '{}' ';' \
 	| grcat conf.gcc
 }
 

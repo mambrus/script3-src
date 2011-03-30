@@ -9,7 +9,7 @@ CGREP_SH="cgrep.sh"
 # Atempts to work as the very useful Android cgrep utility
 
 function cgrep() {
-	find . -iregex '\(.*\.c$\|.*\.h$\|.*\.s$\)' -exec egrep "$1" -nH '{}' ';' \
+	find . -iregex '\(.*\.c$\|.*\.h$\|.*\.s$\)' -exec egrep "$1" --color=always -nH '{}' ';' \
 	| grcat conf.gcc
 }
 
