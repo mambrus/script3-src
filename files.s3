@@ -1,3 +1,4 @@
+autogrep.sh
 cgrep.sh
 c-only.ctags
 ctags_forlang.sh
@@ -7,6 +8,7 @@ java-only.ctags
 jgrep.sh
 kate_trace.sh
 mgrep.sh
+shgrep.sh
 symbol_find.sh
 traces2srcref.sh
 vim_src2stack.sh
