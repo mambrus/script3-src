@@ -9,8 +9,9 @@ CGREP_SH="cgrep.sh"
 # Atempts to work as the very useful Android cgrep utility
 
 function cgrep() {
-	find . -iregex '\(.*\.c$\|.*\.h$\|.*\.s$\)' -exec egrep "$1" --color=always -nH '{}' ';' \
-	| grcat conf.gcc
+	local PATTERN='\(.*\.c$\|.*\.h$\|.*\.s$\|.*\.h$\)'
+	find . -iregex "${PATTERN}" -exec egrep "$1" -nH --color=always '{}' ';' | \
+		grcat conf.gcc
 }
 
 source s3.ebasename.sh
