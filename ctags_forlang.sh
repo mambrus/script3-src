@@ -21,6 +21,7 @@ function ctags_forlang() {
 
   CTAGS_FILES="$(( ls $HOME/bin/*.ctags 2>/dev/null )  | sed -e 's/^.*\///')"
   if [ "X" != "X${CTAGS_FILES}" ]; then
+
 	echo -n "Linking ["
 	for F in $CTAGS_FILES; do
 	  echo -n " $F"
