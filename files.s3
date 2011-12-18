@@ -8,6 +8,7 @@ java-only.ctags
 jgrep.sh
 kate_trace.sh
 mgrep.sh
+reverse_file.sh
 shgrep.sh
 symbol_find.sh
 traces2srcref.sh
