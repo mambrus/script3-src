@@ -7,15 +7,20 @@ if [ -z $SHGREP_SH ]; then
 SHGREP_SH="shgrep.sh"
 
 function shgrep() {
-	local PATTERN='\(.*\.sh$\|.*\.exp$\)'
-	find . -iregex "${PATTERN}" -exec egrep "$1" -nH --color=always '{}' ';' | \
-		grcat conf.gcc
+	XGREP_PATTERN='\(.*\.sh$\|.*\.exp$\)'
+	xgrep "${1}" "${2}"
 }
 
 source s3.ebasename.sh
+source src.xgrep.sh
 if [ "$SHGREP_SH" == $( ebasename $0 ) ]; then
 	#Not sourced, do something with this.
-	shgrep $@
+
+	XGREP_SH_INFO=${SHGREP_SH}
+	source src.ui.sh
+
+	shgrep "$@" "${COLOR_PARAM}"
+
 	exit $?
 fi
 
