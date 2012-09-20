@@ -8,24 +8,16 @@ CGREP_SH="cgrep.sh"
 
 # Atempts to work as the very useful Android cgrep utility
 
-function cgrep_colorized() {
-	local PATTERN='\(.*\.c$\|.*\.h$\|.*\.s$\|.*\.ld$\)'
-	find . -iregex "${PATTERN}" -exec egrep "$1" -nH --color=always '{}' ';' | \
-		grcat conf.gcc
-}
-
 function cgrep() {
 	local PATTERN='\(.*\.c$\|.*\.h$\|.*\.s$\|.*\.ld$\)'
-	find . -iregex "${PATTERN}" -exec egrep "$1" -nH '{}' ';' 
+	find . -iregex "${PATTERN}" -exec egrep "${1}" -nH "${2}" '{}' ';'
 }
+
 
 source s3.ebasename.sh
 if [ "$CGREP_SH" == $( ebasename $0 ) ]; then
 	#Not sourced, do something with this.
 
-	if [ -z COLORIZED_GREP ]; then
-		COLORIZED_GREP="YES"
-	fi;
 
 function print_help() {
 			cat <<EOF
@@ -39,7 +31,7 @@ Example:
   -h		Print this help
 EOF
 }
-	while getopts n:c:h OPTION; do
+	while getopts h:n:c OPTION; do
 		case $OPTION in
 		h)
 			print_help $0
@@ -62,10 +54,14 @@ EOF
 	shift $(($OPTIND - 1))
 	
 	if [ "X${COLORIZED_GREP}" == "XYES" ]; then
-		cgrep_colorized $@
+		COLOR_PARAM="--color=always"
+	elif [ "X${COLORIZED_GREP}" == "XNO" ]; then
+		COLOR_PARAM="--color=never"
 	else
-		cgrep $@
+		COLOR_PARAM="--color=auto"
 	fi
+
+	cgrep "$@" "${COLOR_PARAM}"
 
 	exit $?
 fi
