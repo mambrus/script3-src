@@ -12,5 +12,7 @@ reverse_file.sh
 shgrep.sh
 symbol_find.sh
 traces2srcref.sh
+ui.sh
 vim_src2stack.sh
 vim_traceopen.sh
+xgrep.sh
