@@ -1,38 +1,39 @@
 #!/bin/bash
 # Author: Michael Ambrus (ambrmi09@gmail.com)
-# 2011-03-21
+# 2012-09-20
+# This is the backend for all src.*grep.sh tools. All it needs is a pattern
+# in the envvar XGREP_PATTERN
 
-if [ -z $CGREP_SH ]; then
+if [ -z $XGREP_SH ]; then
 
-CGREP_SH="cgrep.sh"
+XGREP_SH="xgrep.sh"
 
-# Atempts to work as the very useful Android cgrep utility
+# Atempts to work as the very useful Android xgrep utility
 
-function cgrep() {
-	XGREP_PATTERN='\(.*\.c$\|.*\.h$\|.*\.s$\|.*\.ld$\)'
-	xgrep "${1}" "${2}"
+function xgrep() {
+	local PATTERN='\(.*\.c$\|.*\.h$\|.*\.s$\|.*\.ld$\)'
+	find . -iregex "${PATTERN}" -exec egrep "${1}" -nH "${2}" '{}' ';'
 }
 
 
 source s3.ebasename.sh
-source src.xgrep.sh
-if [ "$CGREP_SH" == $( ebasename $0 ) ]; then
+if [ "$XGREP_SH" == $( ebasename $0 ) ]; then
 	#Not sourced, do something with this.
 
 
 function print_help() {
 			cat <<EOF
-Usage: $CGREP_SH [options] -- regexp_pattern
+Usage: $XGREP_SH [options] -- regexp_pattern
 
 Example:
-  $CGREP_SH -n my_specific_cfunction
+  $XGREP_SH -n my_specific_cfunction
 
   -n		Force no-colorized output no matter of COLORIZED_GREP
   -c		Force colorized output no matter of COLORIZED_GREP
   -h		Print this help
 EOF
 }
-	while getopts h:n:c OPTION; do
+	while getopts n:c:h OPTION; do
 		case $OPTION in
 		h)
 			print_help $0
@@ -62,9 +63,7 @@ EOF
 		COLOR_PARAM="--color=auto"
 	fi
 
-	XGREP_PATTERN='\(.*\.c$\|.*\.h$\|.*\.s$\|.*\.ld$\)'
-
-	cgrep "$@" "${COLOR_PARAM}"
+	xgrep "$@" "${COLOR_PARAM}"
 
 	exit $?
 fi
