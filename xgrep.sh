@@ -14,7 +14,7 @@ function xgrep() {
 		XGREP_PATTERN='\(.*\)'
 	fi
 
-	find . -iregex "${XGREP_PATTERN}" -exec egrep "${1}" -nH "${2}" '{}' ';'
+	find . -name out -prune -o -iregex "${XGREP_PATTERN}" -exec egrep "${1}" -nH "${2}" '{}' ';'
 }
 
 
