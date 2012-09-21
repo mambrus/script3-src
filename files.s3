@@ -7,6 +7,7 @@ exclude_patterns.ctags
 java-only.ctags
 jgrep.sh
 kate_trace.sh
+mdef.sh
 mgrep.sh
 reverse_file.sh
 shgrep.sh
