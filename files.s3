@@ -10,6 +10,8 @@ kate_trace.sh
 make-only.ctags
 mdef.sh
 mgrep.sh
+pgrep.sh
+rcgrep.sh
 reverse_file.sh
 shgrep.sh
 symbol_find.sh
