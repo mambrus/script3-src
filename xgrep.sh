@@ -14,7 +14,12 @@ function xgrep() {
 		XGREP_PATTERN='\(.*\)'
 	fi
 
-	find . -name out -prune -o -iregex "${XGREP_PATTERN}" -exec egrep "${1}" -nH "${2}" '{}' ';'
+	find . \
+		-path "./out*" -prune -o \
+		-path "./.repo/" -prune -o \
+		-path "./.git/" -prune -o \
+		-iregex "${XGREP_PATTERN}" \
+		-exec egrep "${1}" -nH "${2}" '{}' ';'
 }
 
 
