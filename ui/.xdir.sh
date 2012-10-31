@@ -11,10 +11,11 @@ Example:
 
   -n		Force no-colorized output no matter of COLORIZED_GREP
   -c		Force colorized output no matter of COLORIZED_GREP
+  -i		Ignore caps
   -h		Print this help
 EOF
 }
-	while getopts h:n:c OPTION; do
+	while getopts hnci OPTION; do
 		case $OPTION in
 		h)
 			print_help $0
@@ -25,6 +26,9 @@ EOF
 			;;
 		c)
 			COLORIZED_GREP="YES"
+			;;
+		i)
+			IGNORE_CAP="YES"
 			;;
 		?)
 			echo "Syntax error:" 1>&2
@@ -43,3 +47,5 @@ EOF
 	else
 		COLOR_PARAM="--color=auto"
 	fi
+
+	IGNORE_CAP={$IGNORE_CAP-"NO"}

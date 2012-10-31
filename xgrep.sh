@@ -14,12 +14,21 @@ function xgrep() {
 		XGREP_PATTERN='\(.*\)'
 	fi
 
-	find . \
-		-path "./out*" -prune -o \
-		-path "./.repo/" -prune -o \
-		-path "./.git/" -prune -o \
-		-iregex "${XGREP_PATTERN}" \
-		-exec egrep "${1}" -nH "${2}" '{}' ';'
+	if [ "X${IGNORE_CAP}" == "XNO" ]; then
+		find . \
+			-path "./out*" -prune -o \
+			-path "./.repo/" -prune -o \
+			-path "./.git/" -prune -o \
+			-regex "${XGREP_PATTERN}" \
+			-exec egrep "${1}" -nH "${2}" '{}' ';'
+	else
+		find . \
+			-path "./out*" -prune -o \
+			-path "./.repo/" -prune -o \
+			-path "./.git/" -prune -o \
+			-iregex "${XGREP_PATTERN}" \
+			-exec egrep "${1}" -nH "${2}" '{}' ';'
+	fi
 }
 
 
