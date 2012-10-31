@@ -17,7 +17,7 @@ if [ "$SHGREP_SH" == $( ebasename $0 ) ]; then
 	#Not sourced, do something with this.
 
 	XGREP_SH_INFO=${SHGREP_SH}
-	source src.ui.sh
+	source .src.ui..xdir.sh
 
 	shgrep "$@" "${COLOR_PARAM}"
 

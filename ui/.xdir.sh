@@ -35,7 +35,7 @@ EOF
 		esac
 	done
 	shift $(($OPTIND - 1))
-	
+
 	if [ "X${COLORIZED_GREP}" == "XYES" ]; then
 		COLOR_PARAM="--color=always"
 	elif [ "X${COLORIZED_GREP}" == "XNO" ]; then
@@ -43,4 +43,3 @@ EOF
 	else
 		COLOR_PARAM="--color=auto"
 	fi
-
