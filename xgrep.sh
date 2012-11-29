@@ -18,14 +18,14 @@ function xgrep() {
 		find . \
 			-path "./out*" -prune -o \
 			-path "./.repo/" -prune -o \
-			-path "./.git/" -prune -o \
+			-path "*/.git/*" -prune -o \
 			-regex "${XGREP_PATTERN}" \
 			-exec egrep "${1}" -nH "${2}" '{}' ';'
 	else
 		find . \
 			-path "./out*" -prune -o \
 			-path "./.repo/" -prune -o \
-			-path "./.git/" -prune -o \
+			-path "*/.git/*" -prune -o \
 			-iregex "${XGREP_PATTERN}" \
 			-exec egrep "${1}" -nH "${2}" '{}' ';'
 	fi
@@ -37,7 +37,7 @@ if [ "$XGREP_SH" == $( ebasename $0 ) ]; then
 	#Not sourced, do something with this.
 
 	XGREP_SH_INFO=${XGREP_SH}
-	source .src.ui..xgrep.sh
+	source .src.ui..xdir.sh
 
 	xgrep "$@" "${COLOR_PARAM}"
 
