@@ -24,19 +24,19 @@ function ctags_forlang() {
 
 	ask_user_continue "Would you like me to run ctags for a particular language for you? (Y/n)" "Understood" "Ignoring..."
 	local RC=$?
-	
+
 	local LANGUAGE=$1
 	while [ $RC -eq 0 ]
 	do
 		if [ "X" == "X$LANGUAGE" ]; then
-		  echo -n "Please enter language: "		
+		  echo -n "Please enter language: "
 		  read LANGUAGE
 		  echo
 		fi
 
 		case "$LANGUAGE" in
 		"")
-			echo "There is no default. Try again..."			
+			echo "There is no default. Try again..."
 			;;
 		Java)
 			echo "Running ctags for language [Java]. Please wait..."

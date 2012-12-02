@@ -12,20 +12,20 @@ if [ -z ${ABI} ];		then ABI=elf; fi
 OBJDUMP=${MASHINE}-${SYSTEM}-${ABI}-objdump
 
 if [ ! $# -eq 1 ]; then
-	echo "Syntax error: symbol_find.sh '<regexp>'" 1>&2 
+	echo "Syntax error: symbol_find.sh '<regexp>'" 1>&2
 	echo " You need exactly one argument, a regexp for the symbol" 1>&2
 	exit 1
 fi
 
-FILES=$(find . -regex ".*${MASHINE}.*\.a\$") 
-for F in $FILES; do 
+FILES=$(find . -regex ".*${MASHINE}.*\.a\$")
+for F in $FILES; do
 	HITS=$( ${OBJDUMP} -tT $F | \
 		egrep "$1" | \
-		grep -v UND 
-	); 
-	if [ ! -z "$HITS" ]; then 
+		grep -v UND
+	);
+	if [ ! -z "$HITS" ]; then
 		echo -n "$HITS : "
-		echo $F; 
+		echo $F;
 	fi
 done 2>/dev/null
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 #Example of usage:
-#First start an empty vim like a server, lets say the servername 
+#First start an empty vim like a server, lets say the servername
 #vim --servername kalle
 #Then in another console, execute like this
 #VIMS=$( traces2srcref.sh traces.txt 1483 | vim_src2stack.sh ); for V in "$VIMS"; do vim  --servername kalle --remote-send "$V"; done
@@ -29,7 +29,7 @@ function convert2_vim_editcmd()
 
 if [ "$VIM_SRC2STACK_SH" == $( basename $0 ) ]; then
   #Not sourced, do something with this.
-  
+
 #  cat -- | convert2_vim_editcmd
 #  exit 0
 
@@ -43,13 +43,13 @@ if [ "$VIM_SRC2STACK_SH" == $( basename $0 ) ]; then
 
   if [ -z "$(tty)" ]; then
 	cat -- >> "$TEMPFILE"
-  else 
+  else
 	cat $1 >> "$TEMPFILE"
   fi
 
   reverse_file "$TEMPFILE" | convert2_vim_editcmd
   rm -f "$TEMPFILE"
-  
+
 fi
 
 unset VIM_SRC2STACK_SH

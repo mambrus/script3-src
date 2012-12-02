@@ -1,7 +1,7 @@
 #!/bin/bash
 # Opens stacktrace
 #
-# Author: Michael Ambrus ambrm09@gmail.com 
+# Author: Michael Ambrus ambrm09@gmail.com
 # Date: Nov 20, 2009
 
 
@@ -22,11 +22,11 @@ if [ $# -eq 2 ]; then
   FNAME=${FNAME}_$2
 fi
 
-echo '#!/bin/bash' > "$STARTKATE_SH" 
+echo '#!/bin/bash' > "$STARTKATE_SH"
 echo "# NOTE: This is file was auto-generated $(date "+%y%m%d_%H%M%S"). IT WILL BE OVERWRITTEN!" >> "$STARTKATE_SH"
 echo "# ==============================================================================" >> "$STARTKATE_SH"
 echo "kate -s $FNAME -u $1 >/dev/null 2>&1 &" >> "$STARTKATE_SH"
-echo "sleep 1" >> "$STARTKATE_SH"  
+echo "sleep 1" >> "$STARTKATE_SH"
 
 
 echo "kate -s $FNAME -u $(dirname "$1")/TOMBSTONE >/dev/null 2>&1 &" >> "$STARTKATE_SH"
@@ -44,7 +44,7 @@ tail -n $KEEP_BOTTON_LINES < "$1" 		| \
   sed -e "s/^/kate -s $FNAME -u /"		| \
   grep -v 'u ??' 				| \
   awk '{print; printf "sleep 1\n"}' 		>> \
-  "$STARTKATE_SH" 
+  "$STARTKATE_SH"
 
 
 chmod a+x "$STARTKATE_SH"

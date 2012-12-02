@@ -11,7 +11,7 @@ VIM_TRACEOPEN_SH="vim_traceopen.sh"
 function extract_spos1()
 {
   #echo "$1"
-  
+
   local TR_LINE="$1"
   local CLASSFILE_NO=$(echo "$TR_LINE" | sed -e 's/.*[[:space:]]\+//; s/.*(//; s/).*$//')
   #echo "CLASSFILE_NO=$CLASSFILE_NO"
@@ -19,7 +19,7 @@ function extract_spos1()
   local SEARCH_LINE=$(echo -n "package "; echo -n "$TR_LINE" | sed -e 's/.*[[:space:]]\+//; s/\.[[:alnum:]]\+\.[[:alnum:]]\+(.*$//'; echo ";")
   #echo "SEARCH_LINE=$SEARCH_LINE"
 
-  echo -n $(grep "$SEARCH_LINE" jpacks | 
+  echo -n $(grep "$SEARCH_LINE" jpacks |
     grep $(echo $CLASSFILE_NO | sed -e 's/:.*$//') | awk -F";" '{print $2}');
     echo -n ":"; echo "$CLASSFILE_NO" | sed -e 's/.*://'
 }
@@ -46,19 +46,19 @@ function extract_spos2()
   #echo "METHOD=$METHOD"
 
   #The package is all of the first part of the FCN, except the last two parts
-  local PACKAGE=$(echo "$TR_LINE" | sed -e 's/(.*$//; s/.[[:alnum:]]\+$//;  s/.[[:alnum:]]\+$//; s/.*[[:space:]]//')  
+  local PACKAGE=$(echo "$TR_LINE" | sed -e 's/(.*$//; s/.[[:alnum:]]\+$//;  s/.[[:alnum:]]\+$//; s/.*[[:space:]]//')
   #echo "PACKAGE=$PACKAGE"
   #cho "TR_LINE=$TR_LINE"
 
   #Add som extras, so the search gets what we need from the jpacks file
   local SEARCH_LINE=$(echo -n "package "; echo -n "$PACKAGE"; echo ";")
   #echo "SEARCH_LINE=$SEARCH_LINE"
-  
+
   #Rip obsolete info away from the hit, i.e. refine it to a filename. Note, may result in multilpe hits if people name stupidly. Take the first one.
   local SRC_FILE=$(grep "$SEARCH_LINE" jpacks | grep $(echo "${CLASS}.java") | head -n1 | awk -F";" '{print $2}')
   #echo "SRC_FILE=$SRC_FILE"
-  
-  # For the line-no, we need to guess since signature is not available to us. 
+
+  # For the line-no, we need to guess since signature is not available to us.
   # (normally this is evident from the preceedig call in the stack however).
   # So let's pick the first one and leave the rest for the user to figure out.
 
@@ -97,7 +97,7 @@ source_pos "$1"
     echo "No \"jpacks\" file found. Please create one, see:"
     echo "http://mibwiki.sonyericsson.net/index.php/MiB_Michael_Ambrus#Generate_a_packages_file_to_search_in"
     exit -1
-  fi 
+  fi
   vim $(source_pos "$1" | sed -e 's/:/ +/')
 fi
 

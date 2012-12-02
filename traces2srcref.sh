@@ -21,13 +21,13 @@ if [ "$TRACES2SRCREF_SH" == $( basename $0 ) ]; then
       else
         exit -1
       fi
-  fi 
+  fi
 
   if [ ! -f $1 ]; then
     echo "Error: No traces file provided or found as arg1"
     echo "  Please provide one"
     exit -2
-  fi 
+  fi
 
   CHECKS=$(grep "DALVIK THREADS" $1)
   if [ "x${CHECKS}" == "x" ]; then
@@ -41,14 +41,14 @@ if [ "$TRACES2SRCREF_SH" == $( basename $0 ) ]; then
 	echo "  Please provide one"
 	exit -4
   fi
-  
+
   SYSTIDS=$(grep "sysTid" $1 | sed -e 's/[[:space:]]nice.*$//' | awk -F"=" '{print $2}' | sort -n)
 
   TID_FOUND="NO"
-  for STID in $SYSTIDS; do	
+  for STID in $SYSTIDS; do
 	if [ "x${STID}" == "x$2" ]; then
 	  TID_FOUND="YES"
-	fi	
+	fi
   done
 
   if [ "x${TID_FOUND}" == "xNO" ]; then
@@ -62,11 +62,11 @@ if [ "$TRACES2SRCREF_SH" == $( basename $0 ) ]; then
   fi
 
   ATS=$(sed -ne "/sysTid=$2/,/sysTid/ p" < $1 | egrep '^[[:space:]]+at' | sed -e 's/[[:space:]]/£/g' )
-  for A in $ATS; do	
+  for A in $ATS; do
 	#ALINE=$(echo "$A" | sed -e 's/£/ /g; s/\$/\\$/')
 	ALINE=$(echo "$A" | sed -e 's/£/ /g; s/\$[[:alnum:]]*\././')
 	#ALINE='  at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:799)'
-	
+
 	#echo "$ALINE" | sed -e 's/\$[[:alnum:]]*\././'
 	#echo "$ALINE ----------------------->"
 	source_pos "$ALINE"

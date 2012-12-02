@@ -49,7 +49,7 @@ AWK1='
 				printf("%s;%d;",FNAME,CNTR);
 				ingroup=1
 				print $0
-			
+
 				nextvalid=0
 				if (match($0,"\\\\[[:space:]]*$")){
 					nextvalid=1

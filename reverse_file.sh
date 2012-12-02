@@ -31,13 +31,13 @@ if [ "$REVERSE_FILE" == $( ebasename $0 ) ]; then
 
   if [ -z "$(tty)" ]; then
 	cat -- >> "$TEMPFILE"
-  else 
+  else
 	cat $1 >> "$TEMPFILE"
   fi
 
   reverse_file "$TEMPFILE"
   rm -f "$TEMPFILE"
-  
+
 fi
 unset REVERSE_FILE
 
