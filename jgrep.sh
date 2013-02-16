@@ -7,7 +7,7 @@ if [ -z $JGREP_SH ]; then
 JGREP_SH="jgrep.sh"
 
 function jgrep() {
-	XGREP_PATTERN='\(.*\.java$\|.*makefile.*$\)'
+	XGREP_PATTERN='\(.*\.java$\|.*makefile.*$\|.*\.xml$\)'
 	xgrep "${1}" "${2}"
 }
 

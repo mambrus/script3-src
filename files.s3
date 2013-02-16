@@ -6,6 +6,7 @@ ctags_setup_myproject.sh
 exclude_patterns.ctags
 java-only.ctags
 jgrep.sh
+jgrep.sh.orig
 kate_trace.sh
 make-only.ctags
 mdef.sh
