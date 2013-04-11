@@ -9,7 +9,7 @@ CGREP_SH="cgrep.sh"
 # Atempts to work as the very useful Android cgrep utility
 
 function cgrep() {
-	XGREP_PATTERN='\(.*\.c$\|.*\.h$\|.*\.s$\|.*\.ld$\)'
+	XGREP_PATTERN='\(.*\.c$\|.*\.cpp$\|.*\.h$\|.*\.s$\|.*\.ld$\)'
 	xgrep "${1}" "${2}"
 }
 
