@@ -4,14 +4,14 @@ dalvik/dx/tests/*
 temp_*
 #Consider all these but one to be excluded if tagging in linux kernel
 arch/alpha/*
-#arch/arm/*
+arch/arm/*
 arch/avr32/*
 arch/blackfin/*
 arch/cris/*
 arch/frv/*
 arch/h8300/*
 arch/ia64/*
-arch/kernel/*
+#arch/kernel/*
 arch/m32r/*
 arch/m68k/*
 arch/m68knommu/*
@@ -25,7 +25,7 @@ arch/score/*
 arch/sh/*
 arch/sparc/*
 arch/um/*
-arch/x86/*
+#arch/x86/*
 arch/xtensa/*
 #special, prefer msm
 arch/arm/mach-fsm/*

@@ -50,6 +50,12 @@ function ctags_forlang() {
 			ln -sf j-tags tags
 			RC=1
 			;;
+		lua)
+			echo "Running ctags for language [Java]. Please wait..."
+			ctags --options=${HOME}/bin/src.lua-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o j-tags -R *
+			ln -sf j-tags tags
+			RC=1
+			;;
 		make)
 			echo "Running ctags for language [Make]. Please wait..."
 			ctags --options=${HOME}/bin/src.make-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o m-tags -R *
