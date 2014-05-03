@@ -16,17 +16,27 @@ function xgrep() {
 
 	if [ "X${IGNORE_CAP}" == "XNO" ]; then
 		find ${XGREP_FIND_EXTRAS} . \
+			-path "*/tags*" -prune -o \
+			-path "*/c-tags*" -prune -o \
+			-path "*/*.ko" -prune -o \
+			-path "*/*.o" -prune -o \
 			-path "./out*" -prune -o \
 			-path "./.repo/" -prune -o \
 			-path "*/.git/*" -prune -o \
 			-regex "${XGREP_PATTERN}" \
+			-type f \
 			-exec egrep ${XGREP_GREP_EXTRAS} "${1}" -nH "${2}" '{}' ';'
 	else
 		find ${XGREP_FIND_EXTRAS} . \
+			-path "*/tags*" -prune -o \
+			-path "*/c-tags*" -prune -o \
+			-path "*/*.ko" -prune -o \
+			-path "*/*.o" -prune -o \
 			-path "./out*" -prune -o \
 			-path "./.repo/" -prune -o \
 			-path "*/.git/*" -prune -o \
 			-iregex "${XGREP_PATTERN}" \
+			-type f \
 			-exec egrep -i ${XGREP_GREP_EXTRAS} "${1}" -nH "${2}" '{}' ';'
 	fi
 }
@@ -45,4 +55,3 @@ if [ "$XGREP_SH" == $( ebasename $0 ) ]; then
 fi
 
 fi
-#		find "${XGREP_FIND_EXTRAS}" . \
