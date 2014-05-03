@@ -9,11 +9,7 @@ PGREP_SH="pgrep.sh"
 # Attempts to work as the very useful Android cgrep utility but
 # for Android property-files
 
-function pgrep() {
-	XGREP_PATTERN='\(.*\.prop\)'
-	xgrep "${1}" "${2}"
-}
-
+XGREP_PATTERN='\(.*\.prop\)'
 
 source s3.ebasename.sh
 source src.xgrep.sh
@@ -23,9 +19,11 @@ if [ "$PGREP_SH" == $( ebasename $0 ) ]; then
 	XGREP_SH_INFO=${PGREP_SH}
 	source .src.ui..xdir.sh
 
-	pgrep "$@" "${COLOR_PARAM}"
+	xgrep "$@" "${COLOR_PARAM}"
 
 	exit $?
+else
+	echo "Don't source $XGREP_SH_INFO"
 fi
 
 fi

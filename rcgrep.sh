@@ -10,11 +10,7 @@ RCGREP_SH="rcgrep.sh"
 # for *.rc files (preferably init's but script can't see the difference
 # right now)
 
-function rcgrep() {
-	XGREP_PATTERN='\(.*\.rc\)'
-	xgrep "${1}" "${2}"
-}
-
+XGREP_PATTERN='\(.*\.rc\)'
 
 source s3.ebasename.sh
 source src.xgrep.sh
@@ -24,9 +20,11 @@ if [ "$RCGREP_SH" == $( ebasename $0 ) ]; then
 	XGREP_SH_INFO=${RCGREP_SH}
 	source .src.ui..xdir.sh
 
-	rcgrep "$@" "${COLOR_PARAM}"
+	xgrep "$@" "${COLOR_PARAM}"
 
 	exit $?
+else
+	echo "Don't source $XGREP_SH_INFO"
 fi
 
 fi

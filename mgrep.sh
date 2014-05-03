@@ -8,10 +8,7 @@ MGREP_SH="mgrep.sh"
 
 # Attempts to work as the very useful Android cgrep utility
 
-function mgrep() {
-	XGREP_PATTERN='\(.*\.mk$\|.*makefile.*$\|.*SConscript$\|.*SConstruct$\|.*\.min$\|.*configure.in\)'
-	xgrep "${1}" "${2}"
-}
+XGREP_PATTERN='\(.*\.mk$\|.*makefile.*$\|.*SConscript$\|.*SConstruct$\|.*\.min$\|.*configure.in\)'
 
 
 source s3.ebasename.sh
@@ -22,9 +19,11 @@ if [ "$MGREP_SH" == $( ebasename $0 ) ]; then
 	XGREP_SH_INFO=${MGREP_SH}
 	source .src.ui..xdir.sh
 
-	mgrep "$@" "${COLOR_PARAM}"
+	xgrep "$@" "${COLOR_PARAM}"
 
 	exit $?
+else
+	echo "Don't source $XGREP_SH_INFO"
 fi
 
 fi

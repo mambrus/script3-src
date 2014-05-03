@@ -11,33 +11,23 @@ XGREP_SH="xgrep.sh"
 
 function xgrep() {
 	if [ "X${XGREP_PATTERN}" == "X" ]; then
+		echo "Warning: XGREP_PATTERN is unset. Assigning default" 2>&1
 		XGREP_PATTERN='\(.*\)'
 	fi
 
 	if [ "X${IGNORE_CAP}" == "XNO" ]; then
 		find ${XGREP_FIND_EXTRAS} . \
-			-path "*/tags*" -prune -o \
-			-path "*/c-tags*" -prune -o \
-			-path "*/*.ko" -prune -o \
-			-path "*/*.o" -prune -o \
-			-path "./out*" -prune -o \
-			-path "./.repo/" -prune -o \
-			-path "*/.git/*" -prune -o \
+			"${XGREP_IGNORE_PATH}" \
 			-regex "${XGREP_PATTERN}" \
 			-type f \
 			-exec egrep ${XGREP_GREP_EXTRAS} "${1}" -nH "${2}" '{}' ';'
 	else
+		#Note: This execution path is the default
 		find ${XGREP_FIND_EXTRAS} . \
-			-path "*/tags*" -prune -o \
-			-path "*/c-tags*" -prune -o \
-			-path "*/*.ko" -prune -o \
-			-path "*/*.o" -prune -o \
-			-path "./out*" -prune -o \
-			-path "./.repo/" -prune -o \
-			-path "*/.git/*" -prune -o \
+			"${XGREP_IGNORE_PATH}" \
 			-iregex "${XGREP_PATTERN}" \
 			-type f \
-			-exec egrep -i ${XGREP_GREP_EXTRAS} "${1}" -nH "${2}" '{}' ';'
+			-exec egrep ${XGREP_GREP_EXTRAS} "${1}" -nH "${2}" '{}' ';'
 	fi
 }
 

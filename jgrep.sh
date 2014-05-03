@@ -6,10 +6,7 @@ if [ -z $JGREP_SH ]; then
 
 JGREP_SH="jgrep.sh"
 
-function jgrep() {
-	XGREP_PATTERN='\(.*\.java$\|.*makefile.*$\|.*\.xml$\)'
-	xgrep "${1}" "${2}"
-}
+XGREP_PATTERN='\(.*\.java$\|.*makefile.*$\|.*\.xml$\)'
 
 
 source s3.ebasename.sh
@@ -20,9 +17,11 @@ if [ "$JGREP_SH" == $( ebasename $0 ) ]; then
 	XGREP_SH_INFO=${JGREP_SH}
 	source .src.ui..xdir.sh
 
-	jgrep "$@" "${COLOR_PARAM}"
+	xgrep "$@" "${COLOR_PARAM}"
 
 	exit $?
+else
+	echo "Don't source $XGREP_SH_INFO"
 fi
 
 fi
