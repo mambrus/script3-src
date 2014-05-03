@@ -9,16 +9,19 @@ if [ "X${XGREP_PATTERN}" == "X" ]; then
 	XGREP_PATTERN='\(.*\)'
 fi
 
-# XGREP_IGNORE_PATH default sitting. Environment has precedence.
-if [ "X${XGREP_IGNORE_PATH}" == "X" ]; then
-	XGREP_IGNORE_PATH='
-		-path "*/tags*" -prune -o \
-		-path "*/c-tags*" -prune -o \
-		-path "*/*.ko" -prune -o \
-		-path "*/*.o" -prune -o \
-		-path "./out*" -prune -o \
-		-path "./.repo/" -prune -o \
-		-path "*/.git/*" -prune -o '
+# XGREP_IGNORE default sitting. Environment has precedence. Note that
+# the format differ wrt XGREP_PATTERN. Thats because excluding files cant's be
+# done with -path. The file-patterns are known-to-be binaries. This quite
+# elaborate variable makes most sense when using xgrep directly.
+if [ "X${XGREP_IGNORE}" == "X" ]; then
+	XGREP_IGNORE='
+		-path ./out* -prune -o
+		-path ./.repo/ -prune -o
+		-path */.git/* -prune -o
+		-regex .*\.o$ -prune -o
+		-regex .*/vmlinux$ -prune -o
+		-regex .*/c-tags$ -prune -o
+		-regex .*\.ko$ -prune -o '
 fi
 
 function print_help() {
@@ -44,7 +47,10 @@ $XGREP_SH_INFO -f '-L' -ig'-A1 -B1' 'leds-Pwm.c'
   -G        Append extra options to grep. String is appended to any
             pre-existing XGREP_GREP_EXTRAS before sent verbatim to grep. The
             option can hence as a side-effect be passed several times.
-  -E        Append exclude paths to XGREP_IGNORE_PATH.
+  -E        Append exclude paths to XGREP_IGNORE. Use this to exclude file
+            patterns.
+  -x        Append exclude regex to XGREP_IGNORE. Use this to exclude file
+            patterns.
   -h        Print this help and env variables. Note: due to mentioned
             variables, it mattes where -h appears on the command line.
 
@@ -59,11 +65,15 @@ Current env variables:
    XGREP_FIND_EXTRAS [$XGREP_FIND_EXTRAS]
    XGREP_GREP_EXTRAS [$XGREP_GREP_EXTRAS]
    XGREP_PATTERN     [$XGREP_PATTERN]
-   XGREP_IGNORE_PATH [$XGREP_IGNORE_PATH]
+   XGREP_IGNORE      [$XGREP_IGNORE]
+
+Note:
+   Environment can be pre-set. That includes all vars mentioned above.
+   Calling environment has precedence.
 
 EOF
 }
-	while getopts hncif:F:g:G:E: OPTION; do
+	while getopts hncif:F:g:G:E:x: OPTION; do
 		case $OPTION in
 		h)
 			print_help $0
@@ -91,8 +101,12 @@ EOF
 			XGREP_GREP_EXTRAS="${XGREP_GREP_EXTRAS} ${OPTARG}"
 			;;
 		E)
-			XGREP_IGNORE_PATH="${XGREP_IGNORE_PATH}\\"'
-		'"-path \"${OPTARG}\" -prune -o "
+			XGREP_IGNORE="${XGREP_IGNORE}"'
+		'"-path ${OPTARG} -prune -o "
+			;;
+		x)
+			XGREP_IGNORE="${XGREP_IGNORE}"'
+		'"-regex ${OPTARG} -prune -o "
 			;;
 		?)
 			echo "Syntax error:" 1>&2
@@ -120,5 +134,5 @@ EOF
 		COLOR_PARAM="--color=auto"
 	fi
 
-	IGNORE_CAP={$IGNORE_CAP-"NO"}
+	IGNORE_CAP=${IGNORE_CAP-"YES"}
 

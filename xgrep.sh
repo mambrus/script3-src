@@ -9,6 +9,8 @@ if [ -z $XGREP_SH ]; then
 
 XGREP_SH="xgrep.sh"
 
+#SNIFF='-path "*/power/*"      -prune'
+SNIFF='*/power/*'
 function xgrep() {
 	if [ "X${XGREP_PATTERN}" == "X" ]; then
 		echo "Warning: XGREP_PATTERN is unset. Assigning default" 2>&1
@@ -17,14 +19,14 @@ function xgrep() {
 
 	if [ "X${IGNORE_CAP}" == "XNO" ]; then
 		find ${XGREP_FIND_EXTRAS} . \
-			"${XGREP_IGNORE_PATH}" \
+		    ${XGREP_IGNORE} \
 			-regex "${XGREP_PATTERN}" \
 			-type f \
 			-exec egrep ${XGREP_GREP_EXTRAS} "${1}" -nH "${2}" '{}' ';'
 	else
 		#Note: This execution path is the default
 		find ${XGREP_FIND_EXTRAS} . \
-			"${XGREP_IGNORE_PATH}" \
+		    ${XGREP_IGNORE} \
 			-iregex "${XGREP_PATTERN}" \
 			-type f \
 			-exec egrep ${XGREP_GREP_EXTRAS} "${1}" -nH "${2}" '{}' ';'
