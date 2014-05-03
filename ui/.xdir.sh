@@ -41,8 +41,8 @@ src.xgrep.sh -E'*/drivers/video/*' -E'*/arch/arm/*' -x'.*\.cmd$' -i 'pwm\.h'
   -n        Force no-colorized output no matter of COLORIZED_GREP
   -c        Force colorized output no matter of COLORIZED_GREP
   -i        Ignore NOT difference between capital/non-captal letters
-			in search paths filenames. Defaul is to do but if you know
-			pattern is OK, this will speed up search about 40%.
+            in search paths filenames. Defaul is to do but if you know
+            pattern is OK, this will speed up search about 40%.
   -f        Extra options to find. String sent verbatim as-is to find.
   -F        Append extra options to find. String is appended to any
             pre-existing XGREP_FIND_EXTRAS before sent verbatim to find. The
