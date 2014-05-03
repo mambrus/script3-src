@@ -6,7 +6,7 @@ if [ -z $CGREP_SH ]; then
 
 CGREP_SH="cgrep.sh"
 
-# Atempts to work as the very useful Android cgrep utility
+# Attempts to work as the very useful Android cgrep utility
 
 function cgrep() {
 	XGREP_PATTERN='\(.*\.c$\|.*\.cpp$\|.*\.h$\|.*\.s$\|.*\.ld$\)'

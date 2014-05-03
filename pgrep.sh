@@ -6,8 +6,8 @@ if [ -z $PGREP_SH ]; then
 
 PGREP_SH="pgrep.sh"
 
-# Atempts to work as the very useful Android cgrep utility but
-# for property-files
+# Attempts to work as the very useful Android cgrep utility but
+# for Android property-files
 
 function pgrep() {
 	XGREP_PATTERN='\(.*\.prop\)'

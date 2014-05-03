@@ -1,7 +1,7 @@
 #!/bin/bash
 # Author: Michael Ambrus (ambrmi09@gmail.com)
 # 2012-09-20
-# This is the backend for all src.*grep.sh tools. All it needs is a pattern
+# This is the back-end for all src.*grep.sh tools. All it needs is a pattern
 # in the envvar XGREP_PATTERN. If run as from-end, it will search for
 # everything (which is basically equal to the normal egrep)
 

@@ -6,10 +6,10 @@ if [ -z $MGREP_SH ]; then
 
 MGREP_SH="mgrep.sh"
 
-# Atempts to work as the very useful Android cgrep utility
+# Attempts to work as the very useful Android cgrep utility
 
 function mgrep() {
-	XGREP_PATTERN='\(.*\.mk$\|.*makefile.*$\|.*SConscript$\|.*SConstruct$\|.*\.min$\)'
+	XGREP_PATTERN='\(.*\.mk$\|.*makefile.*$\|.*SConscript$\|.*SConstruct$\|.*\.min$\|.*configure.in\)'
 	xgrep "${1}" "${2}"
 }
 

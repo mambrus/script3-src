@@ -6,8 +6,9 @@ if [ -z $RCGREP_SH ]; then
 
 RCGREP_SH="rcgrep.sh"
 
-# Atempts to work as the very useful Android cgrep utility but
-# for *.rc files (preferably init's but script can't see the difference right now)
+# Attempts to work as the very useful Android cgrep utility but
+# for *.rc files (preferably init's but script can't see the difference
+# right now)
 
 function rcgrep() {
 	XGREP_PATTERN='\(.*\.rc\)'
