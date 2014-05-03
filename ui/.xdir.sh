@@ -34,6 +34,10 @@ Example:
 $XGREP_SH_INFO -f '-L' -ig'-A1 -B1' 'leds-Pwm.c'
    find follows links, grep prints lines before and after.
 
+src.xgrep.sh -E'*/drivers/video/*' -E'*/arch/arm/*' -x'.*\.cmd$' -i 'pwm\.h'
+   Find vermatim string in linux sources, excluding 2 directories and all
+   files ending with *.cmd.
+
   -n        Force no-colorized output no matter of COLORIZED_GREP
   -c        Force colorized output no matter of COLORIZED_GREP
   -i        Ignore NOT difference between capital/non-captal letters
