@@ -15,7 +15,7 @@ if [ "$JGREP_SH" == $( ebasename $0 ) ]; then
 	#Not sourced, do something with this.
 
 	XGREP_SH_INFO=${JGREP_SH}
-	source .src.ui..xdir.sh
+	source .src.ui..xgrep.sh
 
 	xgrep "$@" "${COLOR_PARAM}"
 
