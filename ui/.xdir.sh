@@ -17,7 +17,7 @@ if [ "X${XGREP_IGNORE}" == "X" ]; then
 	XGREP_IGNORE='
 		-path ./out* -prune -o
 		-path ./.repo/ -prune -o
-		-path */.git/* -prune -o
+		-path "*/.git/" -prune -o
 		-regex .*\.o$ -prune -o
 		-regex .*/vmlinux$ -prune -o
 		-regex .*/c-tags$ -prune -o
