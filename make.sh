@@ -20,9 +20,17 @@ function _make() {
 			make ${MAKE_ARGS}
 		fi
 	elif [ "X${COLOR_PARAM}" == "Xalways" ]; then
+		HAD_PIPEFAIL=$(set | grep pipefail | grep SHELLOPTS)
+		set -o pipefail
 		( make  ${MAKE_ARGS} 2>&1 ) | grcat ${CONFIGF}
+		local RC=$?
+		if [ "no${HAD_PIPEFAIL}"  == "no"  ]; then
+			set +o pipefail
+		fi
+		return $RC
 	else
 		make ${MAKE_ARGS}
+		return $?
 	fi
 }
 
