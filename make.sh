@@ -6,6 +6,19 @@ if [ -z $MAKE_SH ]; then
 
 MAKE_SH="make.sh"
 
+function make_colorized() {
+	local MAKE_ARGS=$1
+	local HAD_PIPEFAIL=$(set | grep pipefail | grep SHELLOPTS)
+
+	set -o pipefail
+	( make  ${MAKE_ARGS} 2>&1 ) | grcat ${CONFIGF}
+	local RC=$?
+	if [ "no${HAD_PIPEFAIL}"  == "no"  ]; then
+		set +o pipefail
+	fi
+	return $RC
+}
+
 function _make() {
 	local COLOR_PARAM=$1
 	local MAKE_ARGS=$2
@@ -15,19 +28,15 @@ function _make() {
 		   GRCAT=$(which grcat)
 		fi
 		if [ "X${GRCAT}" != "X" ]; then
-			( make  ${MAKE_ARGS} 2>&1 ) | grcat ${CONFIGF}
+			make_colorized ${MAKE_ARGS}
+			return $?
 		else
 			make ${MAKE_ARGS}
+			return $?
 		fi
 	elif [ "X${COLOR_PARAM}" == "Xalways" ]; then
-		HAD_PIPEFAIL=$(set | grep pipefail | grep SHELLOPTS)
-		set -o pipefail
-		( make  ${MAKE_ARGS} 2>&1 ) | grcat ${CONFIGF}
-		local RC=$?
-		if [ "no${HAD_PIPEFAIL}"  == "no"  ]; then
-			set +o pipefail
-		fi
-		return $RC
+		make_colorized ${MAKE_ARGS}
+		return $?
 	else
 		make ${MAKE_ARGS}
 		return $?
