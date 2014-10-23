@@ -7,7 +7,7 @@ if [ -z $MAKE_SH ]; then
 MAKE_SH="make.sh"
 
 function make_colorized() {
-	local MAKE_ARGS=$1
+	local MAKE_ARGS="$1"
 	local HAD_PIPEFAIL=$(set | grep pipefail | grep SHELLOPTS)
 
 	set -o pipefail
@@ -21,7 +21,7 @@ function make_colorized() {
 
 function _make() {
 	local COLOR_PARAM=$1
-	local MAKE_ARGS=$2
+	local MAKE_ARGS="$2"
 
 	if [ "X${COLOR_PARAM}" == "Xauto" ]; then
 		if [ "X${VIM}" == "X" ]; then
