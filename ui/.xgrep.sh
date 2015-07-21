@@ -19,8 +19,12 @@ if [ "X${XGREP_IGNORE}" == "X" ]; then
 		-path ./.repo/ -prune -o
 		-path "*/.git/" -prune -o
 		-regex .*\.o$ -prune -o
+		-regex .*\.pyc$ -prune -o
 		-regex .*/vmlinux$ -prune -o
 		-regex .*/c-tags$ -prune -o
+		-regex .*/tags$ -prune -o
+		-regex .*/bin$ -prune -o
+		-regex .*/img$ -prune -o
 		-regex .*\.ko$ -prune -o '
 fi
 
