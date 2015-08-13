@@ -23,8 +23,11 @@ if [ "X${XGREP_IGNORE}" == "X" ]; then
 		-regex .*/vmlinux$ -prune -o
 		-regex .*/c-tags$ -prune -o
 		-regex .*/tags$ -prune -o
-		-regex .*/bin$ -prune -o
-		-regex .*/img$ -prune -o
+		-regex .*\.bin$ -prune -o
+		-regex .*\.img$ -prune -o
+		-regex .*\.gz$ -prune -o
+		-regex .*pack-.*\.pack$ -prune -o
+		-regex .*\.gz$ -prune -o
 		-regex .*\.ko$ -prune -o '
 fi
 
@@ -44,8 +47,12 @@ src.xgrep.sh -E'*/drivers/video/*' -E'*/arch/arm/*' -x'.*\.cmd$' -i 'pwm\.h'
 
   -n        Force no-colorized output no matter of COLORIZED_GREP
   -c        Force colorized output no matter of COLORIZED_GREP
-  -i        Ignore NOT difference between capital/non-captal letters
-            in search paths filenames. Defaul is to do but if you know
+  -i        Ignore capital & non-captal letters while searching in files.
+            This is a conveniance option for backend grep with the same
+            meaning since it's so common. I.e. you don't need to use the -G
+            option for this.
+  -I        Ignore NOT difference between capital & non-captal letters
+            in file patterns. Defaul is to do but if you know
             pattern is OK, this will speed up search about 40%.
   -f        Extra options to find. String sent verbatim as-is to find.
   -F        Append extra options to find. String is appended to any
@@ -81,7 +88,7 @@ Note:
 
 EOF
 }
-	while getopts hncif:F:g:G:E:x: OPTION; do
+	while getopts hncIif:F:g:G:E:x: OPTION; do
 		case $OPTION in
 		h)
 			print_help $0
@@ -93,8 +100,8 @@ EOF
 		c)
 			COLORIZED_GREP="YES"
 			;;
-		i)
-			IGNORE_CAP="NO"
+		I)
+			IGNORE_CAP_FILEPATT="NO"
 			;;
 		f)
 			XGREP_FIND_EXTRAS="${OPTARG}"
@@ -107,6 +114,9 @@ EOF
 			;;
 		G)
 			XGREP_GREP_EXTRAS="${XGREP_GREP_EXTRAS} ${OPTARG}"
+			;;
+		i)
+			XGREP_GREP_EXTRAS="${XGREP_GREP_EXTRAS} -i"
 			;;
 		E)
 			XGREP_IGNORE="${XGREP_IGNORE}"'
@@ -142,5 +152,5 @@ EOF
 		COLOR_PARAM="--color=auto"
 	fi
 
-	IGNORE_CAP=${IGNORE_CAP-"YES"}
+	IGNORE_CAP_FILEPATT=${IGNORE_CAP_FILEPATT-"YES"}
 

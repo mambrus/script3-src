@@ -17,7 +17,7 @@ function xgrep() {
 		XGREP_PATTERN='\(.*\)'
 	fi
 
-	if [ "X${IGNORE_CAP}" == "XNO" ]; then
+	if [ "X${IGNORE_CAP_FILEPATT}" == "XNO" ]; then
 		find ${XGREP_FIND_EXTRAS} . \
 		    ${XGREP_IGNORE} \
 			-regex "${XGREP_PATTERN}" \
