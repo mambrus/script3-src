@@ -17,6 +17,10 @@ if [ "$PGREP_SH" == $( ebasename $0 ) ]; then
 	#Not sourced, do something with this.
 
 	XGREP_SH_INFO=${PGREP_SH}
+	XGREP_IGNORE=${XGREP_IGNORE-'
+		-path ./out* -prune -o
+		-path ./.repo/ -prune -o
+		-path "*/.git/" -prune -o '}
 	source .src.ui..xgrep.sh
 
 	xgrep "$@" "${COLOR_PARAM}"
