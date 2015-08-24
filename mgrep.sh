@@ -8,8 +8,7 @@ MGREP_SH="mgrep.sh"
 
 # Attempts to work as the very useful Android cgrep utility
 
-XGREP_PATTERN='\(.*\.scons$\|.*\.mk$\|.*makefile.*$\|.*SConscript$\|.*SConstruct$\|.*\.min$\|.*configure.in\)'
-
+XGREP_PATTERN='\(.*\.scons$\|.*\.mk$\|.*makefile.*$\|.*\.cmake$\|.*CMakeLists.txt$\|.*SConscript$\|.*SConstruct$\|.*\.min$\|.*configure.in\)'
 
 source s3.ebasename.sh
 source src.xgrep.sh
