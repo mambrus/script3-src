@@ -9,6 +9,12 @@ if [ "X${XGREP_PATTERN}" == "X" ]; then
 	XGREP_PATTERN='\(.*\)'
 fi
 
+if [ "X${XGREP_SH_INFO}" == "Xxgrep.sh" ]; then
+	REJBIN_TRY_HARDER=${REJBIN_TRY_HARDER-"yes"}
+else
+	REJBIN_TRY_HARDER=${REJBIN_TRY_HARDER-"no"}
+fi
+
 # XGREP_IGNORE default sitting. Environment has precedence. Note that
 # the format differ wrt XGREP_PATTERN. Thats because excluding files cant's be
 # done with -path. The file-patterns are known-to-be binaries. This quite
@@ -45,13 +51,16 @@ src.xgrep.sh -E'*/drivers/video/*' -E'*/arch/arm/*' -x'.*\.cmd$' -i 'pwm\.h'
    Find vermatim string in linux sources, excluding 2 directories and all
    files ending with *.cmd.
 
-  -n        Force no-colorized output no matter of COLORIZED_GREP
-  -c        Force colorized output no matter of COLORIZED_GREP
+  -n        Force no-colorized output regardless of COLORIZED_GREP
+  -c        Force colorized output regardless of COLORIZED_GREP
   -i        Ignore capital & non-captal letters while searching in files.
             This is a conveniance option for backend grep with the same
             meaning since it's so common. I.e. you don't need to use the -G
             option for this.
-  -I        Ignore NOT difference between capital & non-captal letters
+  -b        Try harder to reject binaries before searching in them. Default
+            depends on which src.*grep.sh is executing.
+            Current default: [$REJBIN_TRY_HARDER]
+  -I        Ignore noT difference between capital & non-captal letters
             in file patterns. Defaul is to do but if you know
             pattern is OK, this will speed up search about 40%.
   -f        Extra options to find. String sent verbatim as-is to find.
@@ -70,7 +79,7 @@ src.xgrep.sh -E'*/drivers/video/*' -E'*/arch/arm/*' -x'.*\.cmd$' -i 'pwm\.h'
             variables, it mattes where -h appears on the command line.
 
 Caution:
-    With -[fFeE] is possible to enter all sorts of sideeffects related to
+    With -[fFeE] is possible to enter all sorts of side-effects related to
     find (-l) or grep (-g). Distributions version of underlaying commands
     determine what happens. For example: With -f/F '-L' it's possibible to
     enter find-loops. Your distributions version of find what to do with
@@ -88,20 +97,20 @@ Note:
 
 EOF
 }
-	while getopts hncIif:F:g:G:E:x: OPTION; do
+	while getopts hncIif:F:g:G:E:x:b: OPTION; do
 		case $OPTION in
 		h)
 			print_help $0
 			exit 0
 			;;
 		n)
-			COLORIZED_GREP="NO"
+			COLORIZED_GREP="no"
 			;;
 		c)
-			COLORIZED_GREP="YES"
+			COLORIZED_GREP="yes"
 			;;
 		I)
-			IGNORE_CAP_FILEPATT="NO"
+			IGNORE_CAP_FILEPATT="no"
 			;;
 		f)
 			XGREP_FIND_EXTRAS="${OPTARG}"
@@ -114,6 +123,9 @@ EOF
 			;;
 		G)
 			XGREP_GREP_EXTRAS="${XGREP_GREP_EXTRAS} ${OPTARG}"
+			;;
+		b)
+			REJBIN_TRY_HARDER="${OPTARG}"
 			;;
 		i)
 			XGREP_GREP_EXTRAS="${XGREP_GREP_EXTRAS} -i"
@@ -144,13 +156,13 @@ EOF
 		exit 2
 	fi
 
-	if [ "X${COLORIZED_GREP}" == "XYES" ]; then
+	if [ "X${COLORIZED_GREP}" == "Xyes" ]; then
 		COLOR_PARAM="--color=always"
-	elif [ "X${COLORIZED_GREP}" == "XNO" ]; then
+	elif [ "X${COLORIZED_GREP}" == "Xno" ]; then
 		COLOR_PARAM="--color=never"
 	else
 		COLOR_PARAM="--color=auto"
 	fi
 
-	IGNORE_CAP_FILEPATT=${IGNORE_CAP_FILEPATT-"YES"}
+	IGNORE_CAP_FILEPATT=${IGNORE_CAP_FILEPATT-"yes"}
 
