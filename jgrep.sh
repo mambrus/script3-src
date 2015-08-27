@@ -6,7 +6,7 @@ if [ -z $JGREP_SH ]; then
 
 JGREP_SH="jgrep.sh"
 
-XGREP_PATTERN='\(.*\.java$\|.*makefile.*$\|.*\.xml$\)'
+XGREP_FIND_RE='\(.*\.java$\|.*makefile.*$\|.*\.xml$\)'
 
 
 source s3.ebasename.sh
@@ -15,7 +15,7 @@ if [ "$JGREP_SH" == $( ebasename $0 ) ]; then
 	#Not sourced, do something with this.
 
 	XGREP_SH_INFO=${JGREP_SH}
-	XGREP_IGNORE=${XGREP_IGNORE-'
+	XGREP_FIND_IGNORE=${XGREP_FIND_IGNORE-'
 		-path ./out* -prune -o
 		-path ./.repo/ -prune -o
 		-path "*/.git/" -prune -o '}

@@ -10,7 +10,7 @@ RCGREP_SH="rcgrep.sh"
 # for *.rc files (preferably init's but script can't see the difference
 # right now)
 
-XGREP_PATTERN='\(.*\.rc\)'
+XGREP_FIND_RE='\(.*\.rc\)'
 
 source s3.ebasename.sh
 source src.xgrep.sh
@@ -18,7 +18,7 @@ if [ "$RCGREP_SH" == $( ebasename $0 ) ]; then
 	#Not sourced, do something with this.
 
 	XGREP_SH_INFO=${RCGREP_SH}
-	XGREP_IGNORE=${XGREP_IGNORE-'
+	XGREP_FIND_IGNORE=${XGREP_FIND_IGNORE-'
 		-path ./out* -prune -o
 		-path ./.repo/ -prune -o
 		-path "*/.git/" -prune -o '}

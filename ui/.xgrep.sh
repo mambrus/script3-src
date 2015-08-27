@@ -2,11 +2,11 @@
 # This is not even a script, stupid and can't exist alone. It is purely
 # meant for being included.
 
-# XGREP_PATTERN default sitting. Environment has precedence. This ability is
+# XGREP_FIND_RE default sitting. Environment has precedence. This ability is
 # heavily deployed by all sub-scripts to xgrep.sh as the main way of
 # communicating patterns.
-if [ "X${XGREP_PATTERN}" == "X" ]; then
-	XGREP_PATTERN='\(.*\)'
+if [ "X${XGREP_FIND_RE}" == "X" ]; then
+	XGREP_FIND_RE='\(.*\)'
 fi
 
 if [ "X${XGREP_SH_INFO}" == "Xxgrep.sh" ]; then
@@ -15,12 +15,12 @@ else
 	REJBIN_TRY_HARDER=${REJBIN_TRY_HARDER-"no"}
 fi
 
-# XGREP_IGNORE default sitting. Environment has precedence. Note that
-# the format differ wrt XGREP_PATTERN. Thats because excluding files cant's be
+# XGREP_FIND_IGNORE default sitting. Environment has precedence. Note that
+# the format differ wrt XGREP_FIND_RE. Thats because excluding files cant's be
 # done with -path. The file-patterns are known-to-be binaries. This quite
 # elaborate variable makes most sense when using xgrep directly.
-if [ "X${XGREP_IGNORE}" == "X" ]; then
-	XGREP_IGNORE='
+if [ "X${XGREP_FIND_IGNORE}" == "X" ]; then
+	XGREP_FIND_IGNORE='
 		-path ./out* -prune -o
 		-path ./.repo/ -prune -o
 		-path "*/.git/" -prune -o
@@ -65,15 +65,15 @@ src.xgrep.sh -E'*/drivers/video/*' -E'*/arch/arm/*' -x'.*\.cmd$' -i 'pwm\.h'
             pattern is OK, this will speed up search about 40%.
   -f        Extra options to find. String sent verbatim as-is to find.
   -F        Append extra options to find. String is appended to any
-            pre-existing XGREP_FIND_EXTRAS before sent verbatim to find. The
+            pre-existing XGREP_FIND_OPTS before sent verbatim to find. The
             option can hence as a side-effect be passed several times.
   -g        Extra options to grep. String sent verbatim as-is to find.
   -G        Append extra options to grep. String is appended to any
-            pre-existing XGREP_GREP_EXTRAS before sent verbatim to grep. The
+            pre-existing XGREP_GREP_OPTS before sent verbatim to grep. The
             option can hence as a side-effect be passed several times.
-  -E        Append exclude paths to XGREP_IGNORE. Use this to exclude file
+  -E        Append exclude paths to XGREP_FIND_IGNORE. Use this to exclude file
             patterns.
-  -x        Append exclude regex to XGREP_IGNORE. Use this to exclude file
+  -x        Append exclude regex to XGREP_FIND_IGNORE. Use this to exclude file
             patterns.
   -h        Print this help and env variables. Note: due to mentioned
             variables, it mattes where -h appears on the command line.
@@ -86,10 +86,10 @@ Caution:
     loops (normally repeating the loop but limited to twice).
 
 Current env variables:
-   XGREP_FIND_EXTRAS [$XGREP_FIND_EXTRAS]
-   XGREP_GREP_EXTRAS [$XGREP_GREP_EXTRAS]
-   XGREP_PATTERN     [$XGREP_PATTERN]
-   XGREP_IGNORE      [$XGREP_IGNORE]
+   XGREP_FIND_OPTS [$XGREP_FIND_EXTRAS]
+   XGREP_GREP_OPTS [$XGREP_GREP_EXTRAS]
+   XGREP_FIND_RE     [$XGREP_FIND_RE]
+   XGREP_FIND_IGNORE      [$XGREP_FIND_IGNORE]
 
 Note:
    Environment can be pre-set. That includes all vars mentioned above.
@@ -113,29 +113,29 @@ EOF
 			IGNORE_CAP_FILEPATT="no"
 			;;
 		f)
-			XGREP_FIND_EXTRAS="${OPTARG}"
+			XGREP_FIND_OPTS="${OPTARG}"
 			;;
 		F)
-			XGREP_FIND_EXTRAS="${XGREP_FIND_EXTRAS} ${OPTARG}"
+			XGREP_FIND_OPTS="${XGREP_FIND_EXTRAS} ${OPTARG}"
 			;;
 		g)
-			XGREP_GREP_EXTRAS="${OPTARG}"
+			XGREP_GREP_OPTS="${OPTARG}"
 			;;
 		G)
-			XGREP_GREP_EXTRAS="${XGREP_GREP_EXTRAS} ${OPTARG}"
+			XGREP_GREP_OPTS="${XGREP_GREP_EXTRAS} ${OPTARG}"
 			;;
 		b)
 			REJBIN_TRY_HARDER="${OPTARG}"
 			;;
 		i)
-			XGREP_GREP_EXTRAS="${XGREP_GREP_EXTRAS} -i"
+			XGREP_GREP_OPTS="${XGREP_GREP_EXTRAS} -i"
 			;;
 		E)
-			XGREP_IGNORE="${XGREP_IGNORE}"'
+			XGREP_FIND_IGNORE="${XGREP_FIND_IGNORE}"'
 		'"-path ${OPTARG} -prune -o "
 			;;
 		x)
-			XGREP_IGNORE="${XGREP_IGNORE}"'
+			XGREP_FIND_IGNORE="${XGREP_FIND_IGNORE}"'
 		'"-regex ${OPTARG} -prune -o "
 			;;
 		?)

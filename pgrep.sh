@@ -9,7 +9,7 @@ PGREP_SH="pgrep.sh"
 # Attempts to work as the very useful Android cgrep utility but
 # for Android property-files
 
-XGREP_PATTERN='\(.*\.prop\)'
+XGREP_FIND_RE='\(.*\.prop\)'
 
 source s3.ebasename.sh
 source src.xgrep.sh
@@ -17,7 +17,7 @@ if [ "$PGREP_SH" == $( ebasename $0 ) ]; then
 	#Not sourced, do something with this.
 
 	XGREP_SH_INFO=${PGREP_SH}
-	XGREP_IGNORE=${XGREP_IGNORE-'
+	XGREP_FIND_IGNORE=${XGREP_FIND_IGNORE-'
 		-path ./out* -prune -o
 		-path ./.repo/ -prune -o
 		-path "*/.git/" -prune -o '}

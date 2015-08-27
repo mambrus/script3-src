@@ -6,7 +6,7 @@ if [ -z $SHGREP_SH ]; then
 
 SHGREP_SH="shgrep.sh"
 
-XGREP_PATTERN='\(.*\.sh$\|.*\.exp$\)'
+XGREP_FIND_RE='\(.*\.sh$\|.*\.exp$\)'
 
 source s3.ebasename.sh
 source src.xgrep.sh
@@ -14,7 +14,7 @@ if [ "$SHGREP_SH" == $( ebasename $0 ) ]; then
 	#Not sourced, do something with this.
 
 	XGREP_SH_INFO=${SHGREP_SH}
-	XGREP_IGNORE=${XGREP_IGNORE-'
+	XGREP_FIND_IGNORE=${XGREP_FIND_IGNORE-'
 		-path ./out* -prune -o
 		-path ./.repo/ -prune -o
 		-path "*/.git/" -prune -o '}

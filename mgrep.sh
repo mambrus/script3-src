@@ -8,7 +8,7 @@ MGREP_SH="mgrep.sh"
 
 # Attempts to work as the very useful Android cgrep utility
 
-XGREP_PATTERN='\(.*\.scons$\|.*\.mk$\|.*makefile.*$\|.*\.cmake$\|.*CMakeLists.txt$\|.*SConscript$\|.*SConstruct$\|.*\.min$\|.*configure.in\)'
+XGREP_FIND_RE='\(.*\.scons$\|.*\.mk$\|.*makefile.*$\|.*\.cmake$\|.*CMakeLists.txt$\|.*SConscript$\|.*SConstruct$\|.*\.min$\|.*configure.in\)'
 
 source s3.ebasename.sh
 source src.xgrep.sh
@@ -16,7 +16,7 @@ if [ "$MGREP_SH" == $( ebasename $0 ) ]; then
 	#Not sourced, do something with this.
 
 	XGREP_SH_INFO=${MGREP_SH}
-	XGREP_IGNORE=${XGREP_IGNORE-'
+	XGREP_FIND_IGNORE=${XGREP_FIND_IGNORE-'
 		-path ./out* -prune -o
 		-path ./.repo/ -prune -o
 		-path "*/.git/" -prune -o '}
