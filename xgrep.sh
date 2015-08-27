@@ -40,14 +40,16 @@ function xgrep() {
 	find ${XGREP_FIND_OPTS} . \
 		${XGREP_FIND_IGNORE} \
 		-${REGEXP_BIN} "${XGREP_FIND_RE}" \
-		-type f | \
-			fc_filter | \
-			xargs -I '{}' egrep \
-				${XGREP_GREP_OPTS} \
-				"${CONTENT_PATTERN}" \
-				-nH \
-				"${COLOR_PARAM}" \
-				'{}'
+		-type f \
+		-exec egrep ${XGREP_GREP_OPTS} "${CONTENT_PATTERN}" "${COLOR_PARAM}" '{}' ';'
+
+#			fc_filter | \
+#			xargs -I '{}' egrep \
+#				${XGREP_GREP_OPTS} \
+#				"${CONTENT_PATTERN}" \
+#				-nH \
+#				"${COLOR_PARAM}" \
+#				'{}'
 }
 
 

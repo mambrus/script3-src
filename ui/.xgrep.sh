@@ -37,6 +37,8 @@ if [ "X${XGREP_FIND_IGNORE}" == "X" ]; then
 		-regex .*\.ko$ -prune -o '
 fi
 
+XGREP_GREP_OPTS=${XGREP_GREP_OPTS-'-nH'}
+
 function print_help() {
 			cat <<EOF
 Usage: $XGREP_SH_INFO [options] -- regexp_pattern
@@ -86,8 +88,8 @@ Caution:
     loops (normally repeating the loop but limited to twice).
 
 Current env variables:
-   XGREP_FIND_OPTS [$XGREP_FIND_EXTRAS]
-   XGREP_GREP_OPTS [$XGREP_GREP_EXTRAS]
+   XGREP_FIND_OPTS [$XGREP_FIND_OPTS]
+   XGREP_GREP_OPTS [$XGREP_GREP_OPTS]
    XGREP_FIND_RE     [$XGREP_FIND_RE]
    XGREP_FIND_IGNORE      [$XGREP_FIND_IGNORE]
 
@@ -116,19 +118,19 @@ EOF
 			XGREP_FIND_OPTS="${OPTARG}"
 			;;
 		F)
-			XGREP_FIND_OPTS="${XGREP_FIND_EXTRAS} ${OPTARG}"
+			XGREP_FIND_OPTS="${XGREP_FIND_OPTS} ${OPTARG}"
 			;;
 		g)
 			XGREP_GREP_OPTS="${OPTARG}"
 			;;
 		G)
-			XGREP_GREP_OPTS="${XGREP_GREP_EXTRAS} ${OPTARG}"
+			XGREP_GREP_OPTS="${XGREP_GREP_OPTS} ${OPTARG}"
 			;;
 		b)
 			REJBIN_TRY_HARDER="${OPTARG}"
 			;;
 		i)
-			XGREP_GREP_OPTS="${XGREP_GREP_EXTRAS} -i"
+			XGREP_GREP_OPTS="${XGREP_GREP_OPTS} -i"
 			;;
 		E)
 			XGREP_FIND_IGNORE="${XGREP_FIND_IGNORE}"'
