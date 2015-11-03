@@ -10,7 +10,7 @@ $DTFILES_SH_INFO searches for filenames recursevely in a device-tree file
 until all included dtsi files are parsed.
 
 Example:
-  $DTFILES_SH_INFO -n msm8994-v2.1.dts
+  $DTFILES_SH_INFO msm8994-v2.1.dts
 
   -h        Print this help.
 
