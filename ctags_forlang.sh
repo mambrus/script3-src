@@ -102,4 +102,5 @@ if [ "$CTAGS_FORLANG_SH" == $( ebasename $0 ) ]; then
   source s3.user_response.sh
 
   ctags_forlang $@
+  which cscope >/dev/null && cscope -R -b
 fi
