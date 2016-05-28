@@ -14,18 +14,14 @@ function ctags_forlang() {
 
   export TMPDIR="${HOME}/tmp/.ctags_tmp"
   if [ ! -d "$TMPDIR" ]; then
-	mkdir "$TMPDIR"
+	mkdir -p "$TMPDIR"
   fi
-
-  echo "Making links to *.ctags files"
 
   CTAGS_FILES="$(( ls $HOME/bin/*.ctags 2>/dev/null )  | sed -e 's/^.*\///')"
   if [ "X" != "X${CTAGS_FILES}" ]; then
-
-	ask_user_continue "Would you like me to run ctags for a particular language for you? (Y/n)" "Understood" "Ignoring..."
-	local RC=$?
-
 	local LANGUAGE=$1
+	local RC=0
+
 	while [ $RC -eq 0 ]
 	do
 		if [ "X" == "X$LANGUAGE" ]; then
@@ -42,49 +38,49 @@ function ctags_forlang() {
 			echo "Running ctags for language [Java]. Please wait..."
 			ctags --options=${HOME}/bin/src.java-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o j-tags -R *
 			ln -sf j-tags tags
-			RC=1
+			local RC=1
 			;;
 		java)
 			echo "Running ctags for language [Java]. Please wait..."
 			ctags --options=${HOME}/bin/src.java-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o j-tags -R *
 			ln -sf j-tags tags
-			RC=1
+			local RC=1
 			;;
 		lua)
 			echo "Running ctags for language [Java]. Please wait..."
 			ctags --options=${HOME}/bin/src.lua-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o j-tags -R *
 			ln -sf j-tags tags
-			RC=1
+			local RC=1
 			;;
 		make)
 			echo "Running ctags for language [Make]. Please wait..."
 			ctags --options=${HOME}/bin/src.make-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o m-tags -R *
 			ln -sf m-tags tags
-			RC=1
+			local RC=1
 			;;
 		Make)
 			echo "Running ctags for language [Make]. Please wait..."
 			ctags --options=${HOME}/bin/src.make-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o m-tags -R *
 			ln -sf m-tags tags
-			RC=1
+			local RC=1
 			;;
 		C)
 			echo "Running ctags for language [C]. Please wait..."
 			ctags --options=${HOME}/bin/src.c-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o c-tags -R *
 			ln -sf c-tags tags
-			RC=1
+			local RC=1
 			;;
 
 		c)
 			echo "Running ctags for language [C]. Please wait..."
 			ctags --options=${HOME}/bin/src.c-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o c-tags -R *
 			ln -sf c-tags tags
-			RC=1
+			local RC=1
 			;;
 		*)
 			echo
 			echo "I can't handle language [$LANGUAGE]. Try again..."
-			LANGUAGE=""
+			local LANGUAGE=""
 			echo
 			;;
 		esac
@@ -99,7 +95,6 @@ source s3.ebasename.sh
 
 if [ "$CTAGS_FORLANG_SH" == $( ebasename $0 ) ]; then
   #Not sourced, do something with this.
-  source s3.user_response.sh
 
   ctags_forlang $@
   which cscope >/dev/null && cscope -R -b
