@@ -10,7 +10,7 @@ CMAKE_CLEAN_SH="cmake_clean.sh"
 ## is a file or a directory.
 function cmake_clean_find_remove() {
 	SRCH_PATT="${1}"
-	for F in $(find . -name ${SRCH_PATT}); do
+	for F in $(find . -name "${SRCH_PATT}"); do
 		echo "${F}";
 		rm -rf "${F}";
 	done
@@ -23,6 +23,7 @@ function cmake_clean() {
 
 		cmake_clean_find_remove 'cmake_install.cmake'
 		cmake_clean_find_remove 'config.h'
+		cmake_clean_find_remove '*_config.h'
 		cmake_clean_find_remove 'Makefile'
 	popd > /dev/null
 }
