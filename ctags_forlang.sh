@@ -9,16 +9,21 @@
 CTAGS_FORLANG_SH="ctags_forlang.sh"
 
 function ctags_forlang() {
-  set -e
-  set +u
+	set -e
+	set +u
 
-  export TMPDIR="${HOME}/tmp/.ctags_tmp"
-  if [ ! -d "$TMPDIR" ]; then
-	mkdir -p "$TMPDIR"
-  fi
+	export TMPDIR="${HOME}/tmp/.ctags_tmp"
+	if [ ! -d "$TMPDIR" ]; then
+		mkdir -p "$TMPDIR"
+	fi
 
-  CTAGS_FILES="$(( ls $HOME/bin/*.ctags 2>/dev/null )  | sed -e 's/^.*\///')"
-  if [ "X" != "X${CTAGS_FILES}" ]; then
+	CTAGS_FILES="$(( ls $HOME/bin/*.ctags 2>/dev/null )  | sed -e 's/^.*\///')"
+	if [ "X" == "X${CTAGS_FILES}" ]; then
+		echo -n "No [~/bin/*.ctags] files found. Can't continue..." 1>&2
+		echo "Please check your setup" 1>&2
+		exit 1
+	fi
+
 	local LANGUAGE=$1
 	local RC=0
 
@@ -89,7 +94,6 @@ function ctags_forlang() {
 			ln -sf c-tags tags
 			local RC=1
 			;;
-
 		c)
 			echo "Running ctags for language [C]. Please wait..."
 			ctags --options=${HOME}/bin/src.c-only.ctags  \
@@ -107,18 +111,15 @@ function ctags_forlang() {
 			echo
 			;;
 		esac
-    done
-    return 0
-  else
-	echo "No [~/bin/*.ctags] files found. Can't continue... Please check your setup"
-  fi
+	done
+	return 0
 }
 
 source s3.ebasename.sh
 
 if [ "$CTAGS_FORLANG_SH" == $( ebasename $0 ) ]; then
-  #Not sourced, do something with this.
+	#Not sourced, do something with this.
 
-  ctags_forlang $@
-  which cscope >/dev/null && cscope -R -b
+	ctags_forlang $@
+	which cscope >/dev/null && cscope -R -b
 fi
