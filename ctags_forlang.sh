@@ -36,44 +36,67 @@ function ctags_forlang() {
 			;;
 		Java)
 			echo "Running ctags for language [Java]. Please wait..."
-			ctags --options=${HOME}/bin/src.java-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o j-tags -R *
+			ctags --options=${HOME}/bin/src.java-only.ctags  \
+				\
+				--exclude="mnt/*"\
+				--exclude=@${HOME}/bin/src.exclude_patterns.ctags -o j-tags -R *
 			ln -sf j-tags tags
 			local RC=1
 			;;
 		java)
 			echo "Running ctags for language [Java]. Please wait..."
-			ctags --options=${HOME}/bin/src.java-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o j-tags -R *
+			ctags --options=${HOME}/bin/src.java-only.ctags  \
+				\
+				--exclude="mnt/*"\
+				--exclude=@${HOME}/bin/src.exclude_patterns.ctags -o j-tags -R *
 			ln -sf j-tags tags
 			local RC=1
 			;;
 		lua)
 			echo "Running ctags for language [Java]. Please wait..."
-			ctags --options=${HOME}/bin/src.lua-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o j-tags -R *
+			ctags --options=${HOME}/bin/src.lua-only.ctags  \
+				\
+				--exclude="mnt/*"\
+				--exclude=@${HOME}/bin/src.exclude_patterns.ctags -o j-tags -R *
 			ln -sf j-tags tags
 			local RC=1
 			;;
 		make)
 			echo "Running ctags for language [Make]. Please wait..."
-			ctags --options=${HOME}/bin/src.make-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o m-tags -R *
+			ctags --options=${HOME}/bin/src.make-only.ctags  \
+				\
+				--exclude="mnt/*"\
+				--exclude=@${HOME}/bin/src.exclude_patterns.ctags -o m-tags -R *
 			ln -sf m-tags tags
 			local RC=1
 			;;
 		Make)
 			echo "Running ctags for language [Make]. Please wait..."
-			ctags --options=${HOME}/bin/src.make-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o m-tags -R *
+			ctags --options=${HOME}/bin/src.make-only.ctags  \
+				\
+				--exclude="mnt/*"\
+				--exclude=@${HOME}/bin/src.exclude_patterns.ctags -o m-tags -R *
 			ln -sf m-tags tags
 			local RC=1
 			;;
 		C)
 			echo "Running ctags for language [C]. Please wait..."
-			ctags --options=${HOME}/bin/src.c-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o c-tags -R *
+			ctags --options=${HOME}/bin/src.c-only.ctags  \
+				\
+				--exclude="mnt/*"\
+				--exclude=@${HOME}/bin/src.exclude_patterns.ctags -o c-tags -R * \
+				--links="yes"
 			ln -sf c-tags tags
 			local RC=1
 			;;
 
 		c)
 			echo "Running ctags for language [C]. Please wait..."
-			ctags --options=${HOME}/bin/src.c-only.ctags  --exclude=@${HOME}/bin/src.exclude_patterns.ctags -o c-tags -R *
+			ctags --options=${HOME}/bin/src.c-only.ctags  \
+				\
+				--exclude="mnt/*"\
+				--exclude=@${HOME}/bin/src.exclude_patterns.ctags -o c-tags -R * \
+				--links="yes"
 			ln -sf c-tags tags
 			local RC=1
 			;;
